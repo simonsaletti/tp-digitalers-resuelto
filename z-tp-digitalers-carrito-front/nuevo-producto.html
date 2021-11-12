@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="./css/all.css" />
+
+        <title>Nuevo producto - SHOPPING S.A.</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+            <div class="container">
+                <a href="./index.html" class="navbar-brand">SHOPPING S.A.</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="menu">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item"><a href="./index.html" class="nav-link">Lista de productos</a></li>
+                        <li class="nav-item"><a href="./nuevo-producto.html" class="nav-link active">Nuevo producto</a></li>
+                        <li class="nav-item"><a href="./carrito.html" class="nav-link">Ver carrito</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <main>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h1>Guardar producto</h1>
+                        <hr />
+                        <form name="frmCrearProducto">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" id="txtId" hidden />
+                            </div>
+                            <div class="mb-3">
+                                <label for="txtDescripcion" class="form-label">Descripción</label>
+                                <input type="text" class="form-control" id="txtDescripcion" />
+                                <div id="descripcionHelp" class="form-text">Debe tener xxx caracteres.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="txtPrecio" class="form-label">Precio</label>
+                                <input type="number" class="form-control" id="txtPrecio" step="0.01" min="0" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="txtStock" class="form-label">Stock inicial</label>
+                                <input type="number" class="form-control" id="txtStock" step="1" min="1" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="uplFoto" class="form-label">Imagen</label>
+                                <input type="file" class="form-control" id="uplFoto" />
+                                <div id="uplFotoHelp" class="form-text">Si estamos modificando un producto, debemos cargar nuevamente su foto.</div>
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="crearProducto()">Guardar producto</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="bg-dark text-center text-white mt-5">
+            <div class="container p-4">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="h5">Seguinos en nuestras redes sociales</p>
+                    </div>
+                </div>
+                <section class="mb-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <a class="btn btn-primary btn-floating m-1" style="background-color: #3b5998" href="#!" role="button"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-primary btn-floating m-1" style="background-color: #55acee" href="#!" role="button"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-primary btn-floating m-1" style="background-color: #dd4b39" href="#!" role="button"><i class="fab fa-google"></i></a>
+                            <a class="btn btn-primary btn-floating m-1" style="background-color: #ac2bac" href="#!" role="button"><i class="fab fa-instagram"></i></a>
+                            <a class="btn btn-primary btn-floating m-1" style="background-color: #0082ca" href="#!" role="button"><i class="fab fa-linkedin-in"></i></a>
+                            <a class="btn btn-primary btn-floating m-1" style="background-color: #333333" href="#!" role="button"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </section>
+                <section class="mb-4">
+                    <div class="col-12">
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam eum harum
+                            corrupti dicta, aliquam sequi voluptate quas.
+                        </p>
+                    </div>
+                </section>
+            </div>
+            <section class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+                <div class="col-12">
+                    <p>© 2021 Copyright: <a class="text-white" href="http://digitalers.com.ar/">Digitalers & EducaciónIT</a></p>
+                </div>
+            </section>
+        </footer>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"
+        ></script>
+        <script src="js/utils.js"></script>
+        <script src="js/crearProducto.js"></script>
+    </body>
+</html>
