@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,9 +16,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 
 @Data
@@ -48,6 +52,11 @@ public class Usuario implements Serializable {
 
     @Column(name = "fecha_creacion")
     private LocalDate fechaCreacion;
+    
+    @PrePersist
+    public void preGuardar() {
+        this.fechaCreacion = LocalDate.now();
+    }
 
     // Va @OneToMany, ya que un cliente tiene muchos carritos, pero un carrito es de un único cliente.
     // Como buena práctica, usamos la carga perezosa.
