@@ -7,7 +7,7 @@ public class ItemCarritoDTO implements Serializable {
     private static final long serialVersionUID = 5547156376304088628L;
 
     private Long idProducto;
-    private Integer cantidad;
+    private Long cantidad;
 
     public Long getIdProducto() {
         return idProducto;
@@ -17,11 +17,11 @@ public class ItemCarritoDTO implements Serializable {
         this.idProducto = idProducto;
     }
 
-    public Integer getCantidad() {
+    public Long getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(Integer cantidad) {
+    public void setCantidad(Long cantidad) {
         this.cantidad = cantidad;
     }
 

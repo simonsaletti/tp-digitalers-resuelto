@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import com.digitalers.spring.boot.dto.ProductoRequestDTO;
 import com.digitalers.spring.boot.dto.ProductoResponseDTO;
 import com.digitalers.spring.boot.entidades.Producto;
@@ -22,7 +23,7 @@ public class ProductoServiceImpl implements ProductoService {
 
     @Override
     public List<ProductoResponseDTO> listarTodos() {
-        List<Producto> productos = this.dao.findAllByActive(true);
+        List<Producto> productos = this.dao.findAllByActiveAndStockGreaterThan(true, 0L);
         // List<Producto> productos = this.dao.findByDescripcionLike("%Apple%");
 
         List<ProductoResponseDTO> productosDTO = new ArrayList<>();
@@ -67,6 +68,13 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     public void borrar(Long id) {
         this.dao.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public void disminuirStock(Long idProducto, Long cantidadComprada) {
+        this.dao.disminuirStock(idProducto, cantidadComprada);
+
     }
 
 }

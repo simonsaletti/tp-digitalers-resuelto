@@ -26,7 +26,7 @@ public class ItemCarrito implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer cantidad;
+    private Long cantidad;
 
     // La relación es unidireccional y debe estar en esta clase, ya que ItemCarrito contiene al
     // producto, pero no al revés. No tiene sentido consultar un producto para tener información sobre
@@ -46,7 +46,7 @@ public class ItemCarrito implements Serializable {
     private Producto producto;
 
 
-    public ItemCarrito(Integer cantidad, Producto producto) {
+    public ItemCarrito(Long cantidad, Producto producto) {
         this.cantidad = cantidad;
         this.producto = producto;
     }

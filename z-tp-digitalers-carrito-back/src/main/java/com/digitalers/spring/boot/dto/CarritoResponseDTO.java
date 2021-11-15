@@ -9,8 +9,6 @@ public class CarritoResponseDTO implements Serializable {
 
     private static final long serialVersionUID = 3852522385847471438L;
 
-    private String descripcion;
-    private String observacion;
     private Long idCliente;
     private List<ItemCarritoDTO> itemsDTO;
 

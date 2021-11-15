@@ -1,5 +1,8 @@
 const listarProductos = () => {
-    fetch('http://localhost:8081/productos')
+    tokenPresente();
+    fetch('http://localhost:8081/productos', {
+        headers: obtenerTokenAuthorizationHeader(new Headers()),
+    })
         .then((resp) => {
             // if (!resp.ok) {
             //     throw Error('Ha ocurrido un problema al intentar traer información sobre los productos.');
@@ -7,33 +10,17 @@ const listarProductos = () => {
             return resp.json();
         })
         .then((data) => {
+            if (!tokenValido(data)) {
+                return false;
+            }
             if (data.status === 200) {
-                // const table = document.querySelector('#lista-productos');
                 if (data.elementos.length > 0) {
+                    document.querySelector('#msj').innerHTML = '';
                     data.elementos.forEach((producto) => {
                         document.querySelector('#lista-productos div').appendChild(crearCard(producto));
                     });
-                    // document.querySelectorAll('.agregar-carrito').forEach((boton) => {
-                    //     boton.addEventListener('click', () => {
-                    //         const idProducto = boton.getAttribute('id');
-                    //         const cantidad = boton.parentElement.parentElement.cells[2].firstChild.value;
-                    //         let carrito = JSON.parse(sessionStorage.getItem('carrito')) || [];
-                    //         const indiceProductoActual = carrito.findIndex((producto) => producto.idProducto === idProducto);
-                    //         if (indiceProductoActual > -1) {
-                    //             carrito[indiceProductoActual] = { idProducto: idProducto, cantidad: cantidad };
-                    //         } else {
-                    //             carrito.push({ idProducto: idProducto, cantidad: cantidad });
-                    //         }
-                    //         sessionStorage.setItem('carrito', JSON.stringify(carrito));
-                    //         const producto = boton.parentElement.parentElement.cells[0].firstChild.textContent;
-                    //         alert(`El producto "${producto}" ha sido agregado al carrito.`);
-                    //     });
-                    // });
                 } else {
-                    document.querySelector('#lista-productos tr').remove();
-                    const parrafo = document.createElement('p');
-                    parrafo.innerHTML = 'No hay productos disponibles.';
-                    document.body.appendChild(parrafo);
+                    eliminarTodasLasCards();
                 }
             } else {
                 document.querySelector('#lista-productos tr').remove();
@@ -47,12 +34,15 @@ const crearCard = (producto) => {
     col.classList.add('col-4');
     col.classList.add('d-flex');
     col.classList.add('justify-content-center');
+    col.classList.add('producto');
     col.innerHTML = `
                 <div class='card mb-4'>
                     <img src='http://localhost:8081/img/${producto.nombreImagen}' class='card-img-top' alt='${producto.descripcion}' />
                     <div class='card-body text-center'>
                         <p class='h5 card-title descripcion' style="height: 50px;">${producto.descripcion}</p>
-                        <p class="cantidad" data-cantmax="${producto.stock}">Cantidad: <input type="number" min="1" max="${producto.stock}" value="1" style="margin-left: 20px;"/></p>
+                        <p class="cantidad" data-cantmax="${producto.stock}">Cantidad: <input type="number" min="1" max="${producto.stock}" value="1" style="margin-left: 20px;"/> de ${
+        producto.stock
+    }</p>
                         <p class='card-text precio' data-precio="${producto.precio}">${formatearMoneda(producto.precio)}</p>
                         <button class='btn btn-primary btn-agregar' data-id="${producto.id}">Agregar</button>
                         <button class='btn btn-danger btn-eliminar' data-id="${producto.id}">Eliminar</button>
@@ -60,6 +50,13 @@ const crearCard = (producto) => {
                     </div>
                 </div>`;
     return col;
+};
+
+const eliminarTodasLasCards = () => {
+    if (document.querySelector('#lista-productos .producto')) {
+        document.querySelector('#lista-productos .producto').remove();
+    }
+    document.querySelector('#msj').innerHTML = 'No hay productos disponibles.';
 };
 
 document.querySelector('#lista-productos div').addEventListener('click', (infoEvento) => {

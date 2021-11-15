@@ -30,8 +30,6 @@ public class Carrito implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String descripcion;
-    private String observacion;
     @Column(name = "fecha_creacion")
     private LocalDate fechaCreacion;
 
@@ -67,9 +65,7 @@ public class Carrito implements Serializable {
         this.itemsCarrito = new ArrayList<>();
     }
 
-    public Carrito(String descripcion, String observacion, Usuario usuario, List<ItemCarrito> itemsCarrito) {
-        this.descripcion = descripcion;
-        this.observacion = observacion;
+    public Carrito(Usuario usuario, List<ItemCarrito> itemsCarrito) {
         this.usuario = usuario;
         this.itemsCarrito = itemsCarrito;
     }

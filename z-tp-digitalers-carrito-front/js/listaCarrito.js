@@ -101,15 +101,13 @@ const efectuarPago = async () => {
     const data = {
         idCliente: 2,
         items: obtenerParesProductoCantidadSS(),
-        observacion: 'obserjajaj',
-        descripcion: 'descjajaj',
     };
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
     const response = await fetch('http://localhost:8081/carritos', {
         method: 'POST',
         body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json',
-        },
+        headers: obtenerTokenAuthorizationHeader(headers),
     });
     switch (response.status) {
         case 201:

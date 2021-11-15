@@ -12,56 +12,31 @@
         />
         <link rel="stylesheet" href="./css/all.css" />
 
-        <title>Nuevo producto - SHOPPING S.A.</title>
+        <title>Iniciar sesión - SHOPPING S.A.</title>
     </head>
     <body>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
             <div class="container">
                 <a href="./index.html" class="navbar-brand">SHOPPING S.A.</a>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="menu">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item"><a href="./index.html" class="nav-link">Lista de productos</a></li>
-                        <li class="nav-item"><a href="./nuevo-producto.html" class="nav-link active">Nuevo producto</a></li>
-                        <li class="nav-item"><a href="./carrito.html" class="nav-link">Ver carrito</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link" onclick="eliminarTokenSS()">Cerrar sesión</a></li>
-                    </ul>
-                </div>
             </div>
         </nav>
         <main>
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <h1>Guardar producto</h1>
+                        <h1>Iniciar sesión</h1>
                         <hr />
-                        <form name="frmCrearProducto">
+                        <form name="frmLogin">
                             <div class="mb-3">
-                                <input type="text" class="form-control" id="txtId" hidden />
+                                <label for="txtUsuario" class="form-label">Usuario</label>
+                                <input type="text" class="form-control" id="txtUsuario" />
+                                <div id="txtUsuarioHelp" class="form-text">Debe tener xxx caracteres.</div>
                             </div>
                             <div class="mb-3">
-                                <label for="txtDescripcion" class="form-label">Descripción</label>
-                                <input type="text" class="form-control" id="txtDescripcion" />
-                                <div id="descripcionHelp" class="form-text">Debe tener xxx caracteres.</div>
+                                <label for="txtClave" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="txtClave" />
                             </div>
-                            <div class="mb-3">
-                                <label for="txtPrecio" class="form-label">Precio</label>
-                                <input type="number" class="form-control" id="txtPrecio" step="0.01" min="0" />
-                            </div>
-                            <div class="mb-3">
-                                <label for="txtStock" class="form-label">Stock inicial</label>
-                                <input type="number" class="form-control" id="txtStock" step="1" min="1" />
-                            </div>
-                            <div class="mb-3">
-                                <label for="uplFoto" class="form-label">Imagen</label>
-                                <input type="file" class="form-control" id="uplFoto" />
-                                <div id="uplFotoHelp" class="form-text">Si estamos modificando un producto, debemos cargar nuevamente su foto.</div>
-                            </div>
-                            <button type="button" class="btn btn-primary" onclick="crearProducto()">Guardar producto</button>
+                            <button type="button" class="btn btn-primary" onclick="login()">Iniciar sesión</button>
                         </form>
                     </div>
                 </div>
@@ -108,7 +83,7 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"
         ></script>
-        <script src="js/utils.js"></script>
-        <script src="js/crearProducto.js"></script>
+        <script src="js/auth-utils.js"></script>
+        <script src="js/login.js"></script>
     </body>
 </html>

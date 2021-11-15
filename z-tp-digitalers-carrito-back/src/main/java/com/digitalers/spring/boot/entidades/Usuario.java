@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,9 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.Data;
 
 @Data
@@ -52,7 +49,7 @@ public class Usuario implements Serializable {
 
     @Column(name = "fecha_creacion")
     private LocalDate fechaCreacion;
-    
+
     @PrePersist
     public void preGuardar() {
         this.fechaCreacion = LocalDate.now();
@@ -75,8 +72,8 @@ public class Usuario implements Serializable {
     private List<Carrito> carritos;
 
     /*
-     * Un usuario tiene una colección de objetos de tipo Role y un Role puede pertenecer a
-     * múltiplesusuarios. Usamos @ManyToMany, ya que es una relación de muchos a muchos.
+     * Un usuario tiene una colección de objetos de tipo Role y un Role puede pertenecer a múltiples
+     * usuarios. Usamos @ManyToMany, ya que es una relación de muchos a muchos.
      */
     /*
      * Vamos a usar una relación en un solo sentido, ya que lo que nos interesa saber es qué roles tiene
@@ -85,9 +82,13 @@ public class Usuario implements Serializable {
      */
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     /*
-     * Usamos @JoinTable
+     * Usamos @JoinTable en la clase dueña de la relación para personalizar el nombre de la tabla
+     * intermedia. Por defecto, va a ser el nombre de la tabla donde estamos parados concatenado por el
+     * nombre de la otra tabla a la cual hace referencia el atributo "roles".
      */
-
+    /*
+     * Como lo estamos poniendo ahora, es redundante. Usamos la configuración sólo para ver cómo se usa.
+     */
     @JoinTable(name = "usuarios_roles", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "role_id"),
             uniqueConstraints = {@UniqueConstraint(columnNames = {"usuario_id", "role_id"})})
     private List<Role> roles;

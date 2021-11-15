@@ -54,7 +54,7 @@ public class ProductoController {
             respuesta.put("status", HttpStatus.OK.value());
             return new ResponseEntity<Map<String, Object>>(respuesta, HttpStatus.OK);
         } catch (Exception e) {
-            respuesta.put("mensaje", "Ha ocurrido un error interno en la aplicación.");
+            respuesta.put("mensaje", "Ha ocurrido un error interno en la aplicación: " + e.getMessage());
             respuesta.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
             return new ResponseEntity<Map<String, Object>>(respuesta, HttpStatus.INTERNAL_SERVER_ERROR);
         }
