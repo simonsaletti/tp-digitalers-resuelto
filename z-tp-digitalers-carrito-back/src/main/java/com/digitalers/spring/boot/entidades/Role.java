@@ -35,6 +35,6 @@ public class Role implements Serializable {
      * usamos mappedBy="roles", donde "roles" es el atributo de la relación en la otra clase (la clase
      * Usuario).
      */
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "roles")
     private List<Usuario> usuarios;
 }
