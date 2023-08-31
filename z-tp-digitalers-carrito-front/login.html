@@ -10,73 +10,73 @@
             integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
             crossorigin="anonymous"
         />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+        <link rel="stylesheet" href="./css/login.css" />
         <link rel="stylesheet" href="./css/all.css" />
 
         <title>Iniciar sesión - SHOPPING S.A.</title>
     </head>
     <body>
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+        <!-- <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
             <div class="container">
                 <a href="./index.html" class="navbar-brand">SHOPPING S.A.</a>
             </div>
-        </nav>
+        </nav> -->
         <main>
             <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <h1>Iniciar sesión</h1>
+                <div class="row justify-content-center">
+                    <div id="main-col" class="col-xl-5 col-lg-6 col-md-8 col-sm-10 col-9 align-self-center border rounded-3 bg-body shadow-lg">
+                        <h1 class="text-center">SHOPPING S.A.</h1>
+                        <h2 class="text-center">Iniciar sesión</h2>
                         <hr />
-                        <form name="frmLogin">
-                            <div class="mb-3">
-                                <label for="txtUsuario" class="form-label">Usuario</label>
-                                <input type="text" class="form-control" id="txtUsuario" />
-                                <div id="txtUsuarioHelp" class="form-text">Debe tener xxx caracteres.</div>
+                        <!-- <form name="frmLogin"> -->
+                        <form>
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="txtUsuario" class="form-label">Usuario</label>
+                                    <input type="text" class="form-control" id="txtUsuario" required />
+                                    <div id="txtUsuarioHelp" class="form-text">Hasta 20 caracteres.</div>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="txtClave" class="form-label">Contraseña</label>
-                                <input type="password" class="form-control" id="txtClave" />
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="txtClave" class="form-label">Contraseña</label>
+                                    <div class="input-group mb-3">
+                                        <input type="password" class="form-control" id="txtClave" required />
+                                        <span class="input-group-text"><i class="far fa-eye" id="togglePassword"></i></span>
+                                    </div>
+                                    <div id="txtClaveHelp" class="form-text">Entre 8 y 12 caracteres.</div>
+                                </div>
                             </div>
-                            <button type="button" class="btn btn-primary" onclick="login()">Iniciar sesión</button>
+                            <div class="text-center row mt-4">
+                                <div class="col-sm-6 col-12 pb-sm-0 pb-2">
+                                    <input type="reset" value="Borrar campos" class="btn btn-secondary" />
+                                </div>
+                                <div class="col-sm-6 col-12">
+                                    <input type="submit" class="btn btn-primary" value="Iniciar sesión" />
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
         </main>
 
-        <footer class="bg-dark text-center text-white mt-5">
-            <div class="container p-4">
-                <div class="row">
-                    <div class="col-12">
-                        <p class="h5">Seguinos en nuestras redes sociales</p>
+        <!-- Modal -->
+        <div class="modal fade" id="modalLogin" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="loginTitulo" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="loginTitulo">&#128512;</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">Sesión iniciada con éxito.</div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Entendido</button>
                     </div>
                 </div>
-                <section class="mb-4">
-                    <div class="row">
-                        <div class="col-12">
-                            <a class="btn btn-primary btn-floating m-1" style="background-color: #3b5998" href="#!" role="button"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-primary btn-floating m-1" style="background-color: #55acee" href="#!" role="button"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-primary btn-floating m-1" style="background-color: #dd4b39" href="#!" role="button"><i class="fab fa-google"></i></a>
-                            <a class="btn btn-primary btn-floating m-1" style="background-color: #ac2bac" href="#!" role="button"><i class="fab fa-instagram"></i></a>
-                            <a class="btn btn-primary btn-floating m-1" style="background-color: #0082ca" href="#!" role="button"><i class="fab fa-linkedin-in"></i></a>
-                            <a class="btn btn-primary btn-floating m-1" style="background-color: #333333" href="#!" role="button"><i class="fab fa-github"></i></a>
-                        </div>
-                    </div>
-                </section>
-                <section class="mb-4">
-                    <div class="col-12">
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam eum harum
-                            corrupti dicta, aliquam sequi voluptate quas.
-                        </p>
-                    </div>
-                </section>
             </div>
-            <section class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
-                <div class="col-12">
-                    <p>© 2021 Copyright: <a class="text-white" href="http://digitalers.com.ar/">Digitalers & EducaciónIT</a></p>
-                </div>
-            </section>
-        </footer>
+        </div>
 
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

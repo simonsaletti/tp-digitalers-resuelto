@@ -1,0 +1,26 @@
+main {
+    background-image: url(/img/mall2.jpg);
+    /* background-repeat: no-repeat; */
+    background-size: cover;
+    background-position: center;
+}
+
+main .container > .row {
+    height: 100vh;
+}
+
+#main-col {
+    padding: 4rem 2rem;
+}
+
+@media (max-height: 800px) {
+    #main-col {
+        padding: 2rem 2rem;
+    }
+}
+
+@media (min-height: 800px) {
+    #main-col {
+        padding: 2rem 2rem;
+    }
+}

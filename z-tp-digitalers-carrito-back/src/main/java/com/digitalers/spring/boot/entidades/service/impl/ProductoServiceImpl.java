@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.digitalers.spring.boot.dto.ProductoRequestDTO;
 import com.digitalers.spring.boot.dto.ProductoResponseDTO;
 import com.digitalers.spring.boot.entidades.Producto;
-import com.digitalers.spring.boot.entidades.repository.ProductoRepository;
 import com.digitalers.spring.boot.entidades.service.ProductoService;
+import com.digitalers.spring.boot.repository.ProductoRepository;
 
 @Service
 public class ProductoServiceImpl implements ProductoService {

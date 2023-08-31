@@ -26,40 +26,44 @@ import org.springframework.web.filter.CorsFilter;
 // Esta clase de configuración debe heredar de ResourceServerConfigurerAdapter.
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
-    // Creamos un objeto que nos devuelva la configuración para el CORS y lo anotamos como Bean.
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList("http://127.0.0.1:5501"));
-        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        config.setAllowCredentials(true);
-        config.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
-        return source;
-    }
+  // Creamos un objeto que nos devuelva la configuración para el CORS y lo anotamos como Bean.
+  @Bean
+  public CorsConfigurationSource corsConfigurationSource() {
+    CorsConfiguration config = new CorsConfiguration();
+    config.setAllowedOrigins(Arrays.asList("http://127.0.0.1:5501"));
+    config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+    config.setAllowCredentials(true);
+    config.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", config);
+    return source;
+  }
 
 
-    @Bean
-    public FilterRegistrationBean<CorsFilter> corsFilter() {
-        FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<CorsFilter>(new CorsFilter(corsConfigurationSource()));
-        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
-        return bean;
-    }
+  @Bean
+  public FilterRegistrationBean<CorsFilter> corsFilter() {
+    FilterRegistrationBean<CorsFilter> bean =
+        new FilterRegistrationBean<CorsFilter>(new CorsFilter(corsConfigurationSource()));
+    bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+    return bean;
+  }
 
-    // Sobrescribimos el método configure(HttpSecurity http) para configurar los recursos permitidos.
-    @Override
-    public void configure(HttpSecurity http) throws Exception {
-        String[] endpointsPermitidos = new String[] {"/img/**"};
-        http
-                // Le damos acceso al listado de clientes para todo.
-                .authorizeRequests()
-                // Especificamos las rutas públicas (y verbos) a las que cualquier usuario puede acceder.
-                .antMatchers(HttpMethod.GET, endpointsPermitidos).permitAll()
-                // Cualquier otra página será sólo para usuarios autenticados.
-                .anyRequest().authenticated()
-                // Configuramos el CORS.
-                .and().cors().configurationSource(corsConfigurationSource());
-    }
+  // Sobrescribimos el método configure(HttpSecurity http) para configurar los recursos permitidos.
+  @Override
+  public void configure(HttpSecurity http) throws Exception {
+    String[] endpointsPermitidosPorGet =
+        new String[] {"/img/**", "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**"};
+    String[] endpointsPermitidosPorPost = new String[] {"/token"};
+    http
+        // Le damos acceso al listado de clientes para todo.
+        .authorizeRequests()
+        // Especificamos las rutas públicas (y verbos) a las que cualquier usuario puede acceder.
+        .antMatchers(HttpMethod.GET, endpointsPermitidosPorGet).permitAll()
+        .antMatchers(HttpMethod.POST, endpointsPermitidosPorPost).permitAll()
+        // Cualquier otra página será sólo para usuarios autenticados.
+        .anyRequest().authenticated()
+        // Configuramos el CORS.
+        .and().cors().configurationSource(corsConfigurationSource());
+  }
 
 }

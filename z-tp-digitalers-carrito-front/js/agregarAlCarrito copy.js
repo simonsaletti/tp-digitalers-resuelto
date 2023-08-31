@@ -1,5 +1,5 @@
 const listarProductos = () => {
-    fetch('http://localhost:8081/productos')
+    fetch('http://localhost:8080/productos')
         .then((resp) => {
             // if (!resp.ok) {
             //     throw Error('Ha ocurrido un problema al intentar traer información sobre los productos.');
@@ -20,7 +20,7 @@ const listarProductos = () => {
                     data.elementos.forEach((producto) => {
                         document.querySelector('#lista-productos div').appendChild(crearCard(producto));
                         //     table.innerHTML += `<tr>
-                        //     <td><img src="http://localhost:8081/img/${producto.nombreImagen}" alt="${producto.descripcion}"></td>
+                        //     <td><img src="http://localhost:8080/img/${producto.nombreImagen}" alt="${producto.descripcion}"></td>
                         //     <td>${producto.descripcion}</td>
                         //     <td>${producto.precio}</td>
                         //     <td><input type="number" min="1" max="10" value="1"></td>
@@ -103,7 +103,7 @@ const crearCard = (producto) => {
     col.classList.add('justify-content-center');
     col.innerHTML = `
                 <div class='card mb-4'>
-                    <img src='http://localhost:8081/img/${producto.nombreImagen}' class='card-img-top' alt='${producto.descripcion}' />
+                    <img src='http://localhost:8080/img/${producto.nombreImagen}' class='card-img-top' alt='${producto.descripcion}' />
                     <div class='card-body text-center'>
                         <h5 class='card-title descripcion' style="height: 50px;">${producto.descripcion}</h5>
                         <p class="cantidad">Cantidad: <input type="number" min="1" max="${producto.stock}" value="1" style="margin-left: 20px;"/></p>

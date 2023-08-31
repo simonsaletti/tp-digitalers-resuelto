@@ -3,6 +3,7 @@ package com.digitalers.spring.boot.entidades.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -12,12 +13,12 @@ import com.digitalers.spring.boot.dto.CarritoResponseDTO;
 import com.digitalers.spring.boot.entidades.Carrito;
 import com.digitalers.spring.boot.entidades.ItemCarrito;
 import com.digitalers.spring.boot.entidades.Usuario;
-import com.digitalers.spring.boot.entidades.repository.CarritoRepository;
-import com.digitalers.spring.boot.entidades.repository.ProductoRepository;
 import com.digitalers.spring.boot.entidades.service.CarritoService;
 import com.digitalers.spring.boot.entidades.service.ClienteService;
 import com.digitalers.spring.boot.entidades.service.ProductoService;
 import com.digitalers.spring.boot.entidades.service.UsuarioService;
+import com.digitalers.spring.boot.repository.CarritoRepository;
+import com.digitalers.spring.boot.repository.ProductoRepository;
 
 @Service
 public class CarritoServiceImpl implements CarritoService {
@@ -57,18 +58,23 @@ public class CarritoServiceImpl implements CarritoService {
     @Transactional
     public Carrito insertar(CarritoRequestDTO dto) {
 
-        List<ItemCarrito> itemsCarrito = dto.getItems().stream().map(itemCarritoDTO -> {
-            this.productoService.disminuirStock(itemCarritoDTO.getIdProducto(), itemCarritoDTO.getCantidad());
-            return new ItemCarrito(itemCarritoDTO.getCantidad(), this.productoDAO.findById(itemCarritoDTO.getIdProducto()).orElse(null));
-        }).collect(Collectors.toList());
-
-        String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-
-        Usuario cliente = this.usuarioService.obtener(username);
-
-        Carrito entidad = new Carrito(cliente, itemsCarrito);
-
-        return this.dao.save(entidad);
+         List<ItemCarrito> itemsCarrito = dto.getItems().stream().map(itemCarritoDTO -> {
+         this.productoService.disminuirStock(itemCarritoDTO.getIdProducto(),
+         itemCarritoDTO.getCantidad());
+         return new ItemCarrito(itemCarritoDTO.getCantidad(),
+         this.productoDAO.findById(itemCarritoDTO.getIdProducto()).orElse(null));
+         }).collect(Collectors.toList());
+        
+         String username =
+         SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        
+         Usuario cliente = // this.usuarioService.obtener(2L);
+        		 new Usuario();
+        
+         Carrito entidad = new Carrito(cliente, itemsCarrito);
+        
+         return this.dao.save(entidad);
+        // return null;
     }
 
 }

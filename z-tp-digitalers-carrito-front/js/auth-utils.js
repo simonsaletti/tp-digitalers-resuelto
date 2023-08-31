@@ -4,6 +4,7 @@ const guardarTokenSS = (accessToken) => {
 
 const eliminarTokenSS = () => {
     sessionStorage.removeItem('token');
+    vaciarCarritoSS();
     window.location.replace('./login.html');
 };
 

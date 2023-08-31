@@ -27,6 +27,9 @@ public class Role implements Serializable {
     @Column(unique = true, length = 20)
     private String nombre;
 
+    @Column(unique = true, length = 255)
+    private String descripcion;
+
     /*
      * Esta implementación de la relación es innecesaria, pero la hacemos sólo para ver cómo se haría.
      */

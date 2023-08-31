@@ -10,11 +10,14 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.digitalers.spring.boot.dto.UsuarioResponseDTO;
 import com.digitalers.spring.boot.entidades.Usuario;
-import com.digitalers.spring.boot.entidades.repository.UsuarioRepository;
 import com.digitalers.spring.boot.entidades.service.UsuarioService;
+import com.digitalers.spring.boot.mappers.UsuarioMapper;
+import com.digitalers.spring.boot.repository.UsuarioRepository;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
@@ -22,10 +25,12 @@ public class UsuarioServiceImpl implements UsuarioService {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private UsuarioRepository usuarioRepository;
+    private UsuarioMapper usuarioMapper;
 
     @Autowired
-    public UsuarioServiceImpl(UsuarioRepository usuarioRepository) {
+    public UsuarioServiceImpl(UsuarioRepository usuarioRepository, UsuarioMapper usuarioMapper) {
         this.usuarioRepository = usuarioRepository;
+        this.usuarioMapper = usuarioMapper;
     }
 
     // Implementamos el método de la interfaz UserDetailsService, provista por Spring Security.
@@ -33,7 +38,9 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        logger.info("Buscando usuario ---> '" + username + "'.");
+    	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    	
+    	logger.info("Buscando usuario ---> '" + username + "'.");
 
         // 1) Buscamos el usuario en nuestro sistema.
         Usuario usuario = this.usuarioRepository.findByUsername(username);
@@ -56,15 +63,26 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         // 4) Este método devuelve una intefaz, pero nosotros vamos devolver un objeto de tipo User, que es
         // una implementación concreta.
-        User user = new User(usuario.getUsername(), usuario.getPassword(), usuario.getEnabled(), true, true, true, authorities);
+
+        String passEncriptada = encoder.encode(usuario.getPassword());
+        User user = new User(usuario.getUsername(), passEncriptada, usuario.getEnabled(), true, true, true, authorities);
         return user;
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Usuario obtener(String username) {
-        Usuario usuario = this.usuarioRepository.findByUsername(username);
-        return usuario;
+    public UsuarioResponseDTO obtener(Long id) {
+        Usuario usuario = this.usuarioRepository.findById(id).orElseThrow();
+        UsuarioResponseDTO usuarioResponseDTO = this.usuarioMapper.fromUsuarioToUsuarioResponseDTO(usuario);
+        return usuarioResponseDTO;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<UsuarioResponseDTO> listarTodos() {
+        List<Usuario> usuarios = this.usuarioRepository.findAll();
+        List<UsuarioResponseDTO> usuarioResponseDTOs = this.usuarioMapper.fromUsuariosToUsuarioResponseDTOs(usuarios);
+        return usuarioResponseDTOs;
     }
 
 }

@@ -80,3 +80,7 @@ const obtenerValorURLParam = (paramBuscado) => {
     const urlParams = new URLSearchParams(queryString);
     return urlParams.get(paramBuscado);
 };
+
+const vaciarCarritoSS = () => {
+    sessionStorage.removeItem('productosCarritoTemp');
+};
